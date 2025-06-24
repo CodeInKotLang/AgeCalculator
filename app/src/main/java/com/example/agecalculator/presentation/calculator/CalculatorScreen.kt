@@ -98,6 +98,7 @@ fun CalculatorScreen(
     ) {
         CalculatorTopBar(
             isDeleteIconVisible = state.occasionId != null,
+            isReminderEnabled = state.isReminderEnabled,
             onBackClick = navigateUp,
             onSaveClick = { onAction(CalculatorAction.SaveOccasion) },
             onDeleteClick = { onAction(CalculatorAction.DeleteOccasion) }
@@ -129,6 +130,7 @@ fun CalculatorScreen(
 private fun CalculatorTopBar(
     modifier: Modifier = Modifier,
     isDeleteIconVisible: Boolean,
+    isReminderEnabled: Boolean,
     onBackClick: () -> Unit,
     onDeleteClick: () -> Unit,
     onSaveClick: () -> Unit,
@@ -146,6 +148,16 @@ private fun CalculatorTopBar(
         },
         title = { Text(text = "Age Calculator") },
         actions = {
+            val bellIcon = if (isReminderEnabled) {
+                R.drawable.ic_notifications_active
+            } else R.drawable.ic_notifications_off
+
+            IconButton(onClick = onSaveClick) {
+                Icon(
+                    painter = painterResource(bellIcon),
+                    contentDescription = "Set Notification"
+                )
+            }
             if (isDeleteIconVisible) {
                 IconButton(onClick = onDeleteClick) {
                     Icon(

@@ -98,7 +98,8 @@ class CalculatorViewModel(
                 id = occasionId,
                 dateMillis = uiState.value.fromDateMillis,
                 emoji = uiState.value.emoji,
-                title = uiState.value.title
+                title = uiState.value.title,
+                isReminderEnabled = uiState.value.isReminderEnabled
             )
             repository.upsertOccasion(occasion)
             _event.send(CalculatorEvent.ShowToast("Saved Successfully"))
